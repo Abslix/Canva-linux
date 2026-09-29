@@ -1,0 +1,27 @@
+app-id: io.github.yago.Canva
+runtime: org.freedesktop.Platform
+runtime-version: '25.08'
+sdk: org.freedesktop.Sdk
+base: org.electronjs.Electron2.BaseApp
+base-version: '25.08'
+command: canva-linux
+
+finish-args:
+  - --share=network
+  - --socket=x11
+  - --share=ipc
+  - --device=dri
+  - --socket=pulseaudio
+  - --filesystem=home
+  - --env=TMPDIR=/var/tmp
+
+modules:
+  - name: canva
+    buildsystem: simple
+    build-commands:
+      - mkdir -p /app/canva
+      - cp -a . /app/canva
+      - ln -s /app/canva/canva-linux /app/bin/canva-linux
+    sources:
+      - type: dir
+        path: /home/yago/Canva-linux/out/Canva-linux-linux-x64

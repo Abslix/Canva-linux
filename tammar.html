@@ -1,0 +1,22 @@
+cat > tabbar.html <<'EOF'
+<!doctype html><meta charset="utf-8"><style>
+body{margin:0;background:#1e1e1e;font:13px sans-serif;color:#ddd;display:flex;height:40px;align-items:flex-end;padding-left:6px;gap:2px;user-select:none;overflow:hidden}
+#t{display:flex;gap:2px;min-width:0}
+.tab{display:flex;align-items:center;gap:8px;max-width:200px;min-width:90px;height:32px;padding:0 10px;background:#2b2b2b;border-radius:8px 8px 0 0;cursor:pointer}
+.tab.active{background:#3a3a3a}
+.tab .title{overflow:hidden;white-space:nowrap;text-overflow:ellipsis;flex:1}
+.x{opacity:.6}.x:hover{opacity:1}
+#new{width:32px;height:32px;background:none;border:0;color:#ddd;font-size:18px;cursor:pointer}
+</style><div id="t"></div><button id="new">+</button>
+<script>
+const t=document.getElementById('t');
+document.getElementById('new').onclick=()=>api.newTab();
+api.onTabs(list=>{t.innerHTML='';list.forEach(x=>{
+  const d=document.createElement('div');d.className='tab'+(x.active?' active':'');
+  const s=document.createElement('span');s.className='title';s.textContent=x.title;
+  const c=document.createElement('span');c.className='x';c.textContent='✕';
+  c.onclick=e=>{e.stopPropagation();api.closeTab(x.id)};
+  d.onclick=()=>api.switchTab(x.id);d.append(s,c);t.append(d);
+})});
+</script>
+EOF
