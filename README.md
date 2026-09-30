@@ -12,14 +12,9 @@ This is a work in progress. I made this mainly as a hobby/personal project. It i
 * npm
 * Linux x64
 
-## Ejecutar
 
-```bash
-npm install
-npx electron .
-```
 
-## Construir paquetes
+## Make Packages
 
 Install the dependencies:
 
